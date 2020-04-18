@@ -1,0 +1,14 @@
+{
+  "name": "werewolf-bot",
+  "version": "0.1",
+  "description": "A bot for the role game 'Werewolf' in Discord",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Inkuantum",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.1.1"
+  }
+}
