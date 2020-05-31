@@ -46,9 +46,9 @@ module.exports = {
                    roleChannelMap.delete(key);
             }
 
-            message.channel.send("All permissions have been reseted! The channel setup was deleted!");
+            message.channel.send(config.reset.permissions + " " + config.reset.setup);
         }else{
-            message.channel.send("All permissions have been reseted!");
+            message.channel.send(config.reset.permissions);
         }
     }
 }

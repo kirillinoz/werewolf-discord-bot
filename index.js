@@ -1,11 +1,13 @@
+//Import Text Tools and Config
+const {config} = require("./config");
 //Dependecy
 const Discord = require('discord.js');
 //New Bot
 const bot = new Discord.Client();
 //Token
-const token = 'Njk4ODEwNTEwNjY1MDU2MzM4.XpLTfA.2uPKSQrMqulqOOQ6i4oNriYAv_4'
+const token = config.options.token;
 //Command Prefix
-const prefix = 'wvd.';
+const prefix = config.options.prefix;
 //
 const fs = require('fs');
 
@@ -29,7 +31,7 @@ let personChannelMap = new Map();
 //Start bot
 bot.on('ready', () =>{
        //Bot is online
-       console.log('This bot is online!');
+       console.log("WVD bot is online!");
 })
 
 //Commands
@@ -43,27 +45,27 @@ bot.on('message', message => {
               case 'flip':
                      //Check for admin
                      if (!message.member.hasPermission("ADMINISTRATOR")){
-                            message.channel.send("You don't have permission to use this command!");
+                            message.channel.send(config.error.noPermission);
                             return;
                      }
-                     bot.commands.get('flip').execute(message);
+                     bot.commands.get('flip').execute(message, config);
               break;
 
               //Match the channel to the role
               case 'match':
                      //Check for admin
                      if (!message.member.hasPermission("ADMINISTRATOR")){
-                            message.channel.send("You don't have permission to use this command!");
+                            message.channel.send(config.error.noPermission);
                             return;
                      }
-                     bot.commands.get('match').execute(message, args, roleChannelMap, channelSendMap, channelShowMap);
+                     bot.commands.get('match').execute(message, args, roleChannelMap, channelSendMap, channelShowMap, config);
               break;
               
               //Assign roles
               case 'assign':
                      //Check for admin
                      if (!message.member.hasPermission("ADMINISTRATOR")){
-                            message.channel.send("You don't have permission to use this command!");
+                            message.channel.send(config.error.noPermission);
                             return;
                      }
                      bot.commands.get('assign').execute(message, args, roleChannelMap, channelSendMap, personChannelMap, personRoleMap, Discord, channelShowMap);
@@ -73,7 +75,7 @@ bot.on('message', message => {
               case 'couple':
                      //Check for admin
                      if (!message.member.hasPermission("ADMINISTRATOR")){
-                            message.channel.send("You don't have permission to use this command!");
+                            message.channel.send(config.error.noPermission);
                             return;
                      }
                      bot.commands.get('couple').execute(message, args, personChannelMap, personRoleMap);
@@ -83,7 +85,7 @@ bot.on('message', message => {
               case 'reset':
                      //Check for admin
                      if (!message.member.hasPermission("ADMINISTRATOR")){
-                            message.channel.send("You don't have permission to use this command!");
+                            message.channel.send(config.error.noPermission);
                             return;
                      }
                      bot.commands.get('reset').execute(message, args, personChannelMap, personRoleMap, roleChannelMap, channelSendMap);

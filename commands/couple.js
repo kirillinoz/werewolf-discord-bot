@@ -3,15 +3,15 @@ module.exports = {
     description: 'Pairs two players!',
     execute(message, args, personChannelMap, personRoleMap){
         if(!args[1] || !args[2] || !args[3]){
-            message.channel.send("One of the arguments is missing! (channel player player)");
+            message.channel.send(config.error.couple_1);
             return;
         }
         if(personRoleMap.get(args[2]) == null || personRoleMap.get(args[3]) == null){
-            message.channel.send("The player IDs you mentioned don't have a role in the game!");
+            message.channel.send(config.error.couple_2);
             return;
         }
         if(!message.guild.channels.resolve(args[1])){
-            message.channel.send("The channel ID you mentioned doesn't exist on your server!");
+            message.channel.send(config.error.couple_3);
             return;
         }
 
@@ -32,7 +32,7 @@ module.exports = {
             });
         }
      
-        message.channel.send("**" + message.guild.members.resolve(playerID1).displayName + "** and **" + message.guild.members.resolve(playerID2).displayName + "** are now paired!");
-        message.guild.channels.resolve(channelID).send("<@" + playerID1 + "> und <@" + playerID2 + ">, ihr seid jetzt ein Pärchen! Ihr müsst euch gegenseitig beschützen!");
+        message.channel.send(config.couple.player_1 + message.guild.members.resolve(playerID1).displayName + config.couple.player_2 + message.guild.members.resolve(playerID2).displayName + config.couple.end);
+        message.guild.channels.resolve(channelID).send("<@" + playerID1 + "> & <@" + playerID2 + ">, " + config.couple.notification);
     }
 }

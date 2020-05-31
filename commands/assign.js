@@ -11,13 +11,13 @@ module.exports = {
 
         //Check that there is at least one argument
         if(!args[1]){
-               message.channel.send("You need to mention the roles!");
+               message.channel.send(config.error.assign_1);
                return;
         }
 
         //Check that the sender is in a voice channel
         if(!voiceChannel){
-               message.channel.send("You must be in a channel to use this command!");
+               message.channel.send(config.error.assign_2);
                return;
         }
 
@@ -36,7 +36,7 @@ module.exports = {
                let roleArgs = args[i].split("=");
                //Check if one of the roles has no channel assigned
                if(!roleChannelMap.has(roleArgs[0])){
-                     message.channel.send("The role **" + roleArgs[0] + "** has yet no channel assigned!");
+                     message.channel.send(config.error.assign_3 + roleArgs[0] + config.error.assign_4);
                      return;
                }
                //If there is no amount mentioned
@@ -53,12 +53,12 @@ module.exports = {
 
         //Check if there are roles missing
         if(voiceChannel.members.size - 1 > roles.length){
-               message.channel.send("Less roles than members (not counting you) in the voice chat!");
+               message.channel.send(config.error.assign_5);
                roles.length = 0;
                return;
         //Check if there are too many roles
         }else if(voiceChannel.members.size - 1 < roles.length){
-               message.channel.send("More roles than members (not counting you) in the voice chat!");
+               message.channel.send(config.error.assign_6);
                roles.length = 0;
                return;
         }
@@ -70,7 +70,7 @@ module.exports = {
         for(const [memberID, member] of voiceChannel.members){
                if(!(member.id === message.member.id)){
                       personRoleMap.set(member.id, newRoles[i]);
-                      message.channel.send('Name: ' + member.displayName + ', ID: ' + member + ', Rolle: ' + personRoleMap.get(member.id));
+                      message.channel.send(config.assign.name + member.displayName + config.assign.id + member + config.assign.role + personRoleMap.get(member.id));
                       i++;
                }
         }
@@ -101,26 +101,29 @@ module.exports = {
                }
         }
 
-              for(const [role, channelID] of roleChannelMap){
+              for(let [role, channelID] of roleChannelMap){
                      let players = [];
                      if(channelShowMap.get(channelID) === "true"){
                             for (let [player, Role] of personRoleMap){
                                    if(Role === role){
                                        players.push(message.guild.members.resolve(player).displayName);
+                                       console.log(message.guild.members.resolve(player).displayName);
                                    }
-                               }
-                               const playersS = players.join(", ");
-                               const embed = new Discord.MessageEmbed()
-                                  .setColor('#ffffff')
-                                  .setTitle('WVD: Neue Runde!')
-                                  .setThumbnail("https://cdn.discordapp.com/app-icons/698810510665056338/ddc2d2eb03a0c659a3bd59d78f3d8c5c.png?size=256")
-                                  .setAuthor("WVD Helper")
-                                  .setFooter("Bot made by Inkuantum",  "https://cdn.discordapp.com/avatars/410110198108127233/7347a719a31010ec630c1da701afeed6.png?size=128")
-                                  .addFields(
-                                         {name: "Rolle:", value: role},
-                                         {name: "Spieler mit dieser Rolle:", value: playersS}
-                                  );
-                                  message.guild.channels.resolve(channelID).send(embed);
+                            }
+                            if(players.length > 0){
+                                   const playersS = players.join(", ");
+                                   const embed = new Discord.MessageEmbed()
+                                   .setColor('#ffffff')
+                                   .setTitle(config.assign.embed.title)
+                                   .setThumbnail(config.assign.embed.thumbnail)
+                                   .setAuthor(config.assign.embed.author)
+                                   .setFooter("Bot made by Inkuantum",  "https://cdn.discordapp.com/avatars/410110198108127233/7347a719a31010ec630c1da701afeed6.png?size=128")
+                                   .addFields(
+                                          {name: config.assign.embed.field_1, value: role},
+                                          {name: config.assign.embed.field_2, value: playersS}
+                                   );
+                                   message.guild.channels.resolve(channelID).send(embed);
+                            }
                      }
               }
        
