@@ -1,6 +1,6 @@
 const config = {
     options: {
-        token: "Njk4ODEwNTEwNjY1MDU2MzM4.XptHHw.Uxwa7m3-9BVh4Cob5yOIH1WAdSE",
+        token: "token",
         prefix: "wvd."
     },
     error: {
