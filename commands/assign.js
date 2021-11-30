@@ -3,6 +3,9 @@ module.exports = {
     description: 'Assigns randomly roles to members in the voice chat!',
     execute(message, args, roleChannelMap, channelSendMap, personChannelMap, personRoleMap, Discord, channelShowMap){
 
+       //Import Text Tools and Config
+       const {config} = require("../config");
+
         //Arrays
         const roles = [];
         

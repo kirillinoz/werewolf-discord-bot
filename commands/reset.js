@@ -2,6 +2,9 @@ module.exports = {
     name: 'reset',
     description: 'Resets all the roles or/and channel settings!',
     execute(message, args, personChannelMap, personRoleMap, roleChannelMap, channelSendMap){
+        //Import Text Tools and Config
+       const {config} = require("../config");
+       
         for(const [key, value] of personChannelMap){
             const specific_channelID = value
             const specific_channel = message.guild.channels.resolve(specific_channelID);

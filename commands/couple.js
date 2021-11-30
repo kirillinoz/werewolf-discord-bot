@@ -2,6 +2,10 @@ module.exports = {
     name: 'couple',
     description: 'Pairs two players!',
     execute(message, args, personChannelMap, personRoleMap){
+
+        //Import Text Tools and Config
+       const {config} = require("../config");
+
         if(!args[1] || !args[2] || !args[3]){
             message.channel.send(config.error.couple_1);
             return;
